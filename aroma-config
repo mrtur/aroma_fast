@@ -87,32 +87,32 @@ form(
   "lang.prop",
   
   "language","<#selectbg_g>Language</#>","","group",
-  "langs/al.lang","Albanian","Shqiptar, thanks to CEPi","select",
-  "langs/cr.lang","Croatian","Hrvatski, thanks to gastonmazzacane","select",
-  "langs/en.lang","English", "","select.selected",
-  "langs/fi.lang","Finnish","Suomi, thanks to amppen","select",
-  "langs/fr.lang","French","Français, thanks to nmeuret","select",
-  "langs/de.lang","German","Deutsch, thanks to beyerservice","select",
-  "langs/pl.lang","Polish","Polski","select",
-  "langs/ru.lang","Russian","Pусский, thanks to egotheist","select",
-  "langs/tr.lang","Turkish","Türkçe, thanks to ZiR0 & MadCoderz","select"
+  #"langs/al.lang","Albanian","Shqiptar, thanks to CEPi","select",
+  #"langs/cr.lang","Croatian","Hrvatski, thanks to gastonmazzacane","select",
+  "langs/en.lang","English", "","select",
+  #"langs/fi.lang","Finnish","Suomi, thanks to amppen","select",
+  #"langs/fr.lang","French","Français, thanks to nmeuret","select",
+  #"langs/de.lang","German","Deutsch, thanks to beyerservice","select",
+  "langs/pl.lang","Polish","Polski","select.selected"
+  #"langs/ru.lang","Russian","Pусский, thanks to egotheist","select",
+  #"langs/tr.lang","Turkish","Türkçe, thanks to ZiR0 & MadCoderz","select"
 );
 
 loadlang(file_getprop("/tmp/aroma-data/lang.prop","language"));
 
-textbox(
+#textbox(
   #-- Title
-    "Changelog",
+#    "Changelog",
   
   #-- Subtitle
-    "",
+#    "",
   
   #-- Icon
-    "@info",
+#    "@info",
   
   #-- Arg 4
-    resread("_changelog.txt")
-);
+#    resread("_changelog.txt")
+#);
 
 agreebox(
   #-- Title
@@ -163,7 +163,8 @@ form(
   "preset","<#selectbg_g><~archidroid.preset.group></#>","","group",
   "custom","<~archidroid.preset.custom>", "<~archidroid.preset.custom.desc>","select",
   "previous","<~archidroid.preset.previous>","<~archidroid.preset.previous.desc>","select.selected",
-  "barebones","<~archidroid.preset.barebones>","<~archidroid.preset.barebones.desc>","select"
+  "barebones","<~archidroid.preset.barebones>","<~archidroid.preset.barebones.desc>","select",
+  "mrtur","<~archidroid.preset.mrtur>","<~archidroid.preset.mrtur.desc>","select"
 );
 else
 loadlang("langs/pl.lang");
@@ -188,7 +189,7 @@ form(
   "custom","<~archidroid.preset.custom>", "<~archidroid.preset.custom.desc>","select",
   "previous","<~archidroid.preset.previous>","<~archidroid.preset.previous.desc>","select",
   "barebones","<~archidroid.preset.barebones>","<~archidroid.preset.barebones.desc>","select",
-  "mrtur","mrtur","Własne ustawienia mrtur'a","select.selected"
+  "mrtur","<~archidroid.preset.mrtur>","<~archidroid.preset.mrtur.desc>","select.selected"
 );
 endif;
 
@@ -200,17 +201,17 @@ endif;
 
 setvar("preset_version","2");
 if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "previous" then
-  setvar("preset_version_probe",read("/data/media/0/ArchiDroid/AromaPreset/version.txt"));
+  setvar("preset_version_probe",read("/data/media/0/ArchiDroid/AromaPreset/Nexus4/version.txt"));
   if getvar("preset_version")!=getvar("preset_version_probe") then
     alert("ArchiDroid Wizard","<~archidroid.detect.previouspreset.fail>","@alert");
     writetmpfile("archidroidinstallmode.prop","preset=custom\n");
   else
-    writetmpfile("archidroid.prop",read("/data/media/0/ArchiDroid/AromaPreset/archidroid.prop"));
-#    writetmpfile("archidroidboeffla.prop",read("/data/media/0/ArchiDroid/AromaPreset/archidroidboeffla.prop"));
-#    writetmpfile("archidroidtemasek.prop",read("/data/media/0/ArchiDroid/AromaPreset/archidroidtemasek.prop"));
-#    writetmpfile("archidroidboefflasound.prop",read("/data/media/0/ArchiDroid/AromaPreset/archidroidboefflasound.prop"));
-    writetmpfile("archidroidxposed.prop",read("/data/media/0/ArchiDroid/AromaPreset/archidroidxposed.prop"));
-    writetmpfile("archidroidbuild.prop",read("/data/media/0/ArchiDroid/AromaPreset/archidroidbuild.prop"));
+    writetmpfile("archidroid.prop",read("/data/media/0/ArchiDroid/AromaPreset/Nexus4/archidroid.prop"));
+#    writetmpfile("archidroidboeffla.prop",read("/data/media/0/ArchiDroid/AromaPreset/Nexus4/archidroidboeffla.prop"));
+#    writetmpfile("archidroidtemasek.prop",read("/data/media/0/ArchiDroid/AromaPreset/Nexus4/archidroidtemasek.prop"));
+#    writetmpfile("archidroidboefflasound.prop",read("/data/media/0/ArchiDroid/AromaPreset/Nexus4/archidroidboefflasound.prop"));
+    writetmpfile("archidroidxposed.prop",read("/data/media/0/ArchiDroid/AromaPreset/Nexus4/archidroidxposed.prop"));
+    writetmpfile("archidroidbuild.prop",read("/data/media/0/ArchiDroid/AromaPreset/Nexus4/archidroidbuild.prop"));
   endif;
 endif;
 
@@ -226,7 +227,7 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "bareb
     "dpi=320\n"+
     "launcher=stock\n"+
     "keyboard=stock\n"+
-    "bootanimation=archi\n"+
+    "bootanimation=none\n"+
     "xposed=0\n"+
     "crossbreeder=0\n"+
     "gapps=0\n"+
@@ -281,7 +282,7 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "mrtur
   writetmpfile(
     "archidroid.prop",
     "kernel=stock\n"+
-    "dpi=280\n"+
+    "dpi=268\n"+
     "launcher=nova\n"+
     "keyboard=touchpal\n"+
     "bootanimation=archi\n"+
@@ -292,7 +293,7 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "mrtur
     "gchrome=0\n"+
     "gkeep=0\n"+
     "gmail=0\n"+
-    "gmaps=0\n"+
+    "gmaps=1\n"+
     "gvoice=1\n"+
     "ghangouts=0\n"+
     "gplus=0\n"+
@@ -304,7 +305,7 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "mrtur
     "mxplayer=1\n"+
     "spiritfm=0\n"+
     "bbs=0\n"+
-    "cooltool=0\n"+
+    "cooltool=1\n"+
     "rootbrowser=1\n"+
     "adobeflash=1\n"+
     "youtube=1\n"+
@@ -344,7 +345,8 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "custo
 
     "dpi","<#selectbg_g>DPI</#>","","group",
     "240","240 DPI","<~archidroid.dpi.240.desc>","select",
-    "241","241 DPI","<~archidroid.dpi.241.desc>","select.selected",
+    "241","241 DPI","<~archidroid.dpi.241.desc>","select",
+	"268","268 DPI","<~archidroid.dpi.268.desc>","select.selected",
     "280","280 DPI","<~archidroid.dpi.280.desc>","select",
     "320","320 DPI","<~archidroid.dpi.320.desc>","select",
 
@@ -403,7 +405,7 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "custo
     "openpdroid","OpenPDroid [<~common.experimental>]","<~archidroid.tweaks.openpdroid.desc>","check",
     "nocell","Remove Cell Broadcasts","<~archidroid.tweaks.nocell.desc>","check.checked"
   );
-  write("/data/media/0/ArchiDroid/AromaPreset/archidroid.prop",
+  write("/data/media/0/ArchiDroid/AromaPreset/Nexus4/archidroid.prop",
     readtmpfile("archidroid.prop");
   );
 
@@ -418,7 +420,7 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "custo
       "appsettings","App Settings","<~archidroid.xposed.appsettings.desc>","check.checked",
       "xprivacy","XPrivacy","<~archidroid.xposed.xprivacy.desc>","check.checked"
     );
-    write("/data/media/0/ArchiDroid/AromaPreset/archidroidxposed.prop",
+    write("/data/media/0/ArchiDroid/AromaPreset/Nexus4/archidroidxposed.prop",
       readtmpfile("archidroidxposed.prop");
     );
   endif;
@@ -432,11 +434,11 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "custo
       "build","<#selectbg_g>Build.prop Tweaks</#>","","group",
       "fastdormancy","Fast Dormancy","<~archidroid.buildtweaks.fastdormancy.desc>","check.checked"
     );
-    write("/data/media/0/ArchiDroid/AromaPreset/archidroidbuild.prop",
+    write("/data/media/0/ArchiDroid/AromaPreset/Nexus4/archidroidbuild.prop",
       readtmpfile("archidroidbuild.prop");
     );
   endif;
-  write("/data/media/0/ArchiDroid/AromaPreset/version.txt",getvar("preset_version"));
+  write("/data/media/0/ArchiDroid/AromaPreset/Nexus4/version.txt",getvar("preset_version"));
 endif;
 
 
