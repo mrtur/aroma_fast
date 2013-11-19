@@ -30,7 +30,7 @@
 #
 ini_set("dp","3");
 ini_set("rom_name",             "ArchiDroid");
-ini_set("rom_version",          "2.2.4");
+ini_set("rom_version",          "2.2.5");
 ini_set("rom_author",           "JustArchi");
 ini_set("rom_device",           "Samsung Galaxy S3");
 ini_set("rom_date",             "November XXth, 2013");
@@ -94,6 +94,7 @@ form(
   "langs/fi.lang","Finnish","Suomi, thanks to amppen","select",
   "langs/fr.lang","French","Français, thanks to nmeuret","select",
   "langs/de.lang","German","Deutsch, thanks to beyerservice","select",
+  "langs/it.lang","Italian","Italiano, thanks to DarkAriex","select",
   "langs/pl.lang","Polish","Polski","select",
   "langs/ru.lang","Russian","Pусский, thanks to egotheist","select",
   "langs/es.lang","Spanish","Español, thanks to mariesqu","select",
@@ -200,7 +201,7 @@ endif;
 ### PREVIOUS PRESET ###
 #######################
 
-setvar("preset_version","2");
+setvar("preset_version","3");
 if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "previous" then
   setvar("preset_version_probe",read("/data/media/0/ArchiDroid/AromaPreset/2.X/version.txt"));
   if getvar("preset_version")!=getvar("preset_version_probe") then
@@ -277,7 +278,7 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "mrtur
     "keyboard=touchpal\n"+
     "bootanimation=archi\n"+
     "archidroidota=0\n"+
-    "xposed=1\n"+
+    "xposed=0\n"+
     "crossbreeder=1\n"+
     "updatemodem=0\n"+
     "updaterecovery=0\n"+
@@ -316,7 +317,7 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "mrtur
   writetmpfile(
     "archidroidxposed.prop",
 
-    "appsettings=1\n"+
+    "appsettings=0\n"+
     "xprivacy=0\n"
   );
   writetmpfile(
@@ -338,10 +339,10 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "custo
     "archidroid.prop",
     
     "kernel","<#selectbg_g>Kernel</#>","","group",
-    "temasek","Temasek Kernel [Boeffla/No ABB]","<~archidroid.kernel.temasek.desc>","select",
     "boeffla","Boeffla Kernel","<~archidroid.kernel.boeffla.desc>","select.selected",
+    "temasek","Temasek Kernel [Boeffla/No ABB]","<~archidroid.kernel.temasek.desc>","select",
     "yank","Yank555.lu Kernel","<~archidroid.kernel.yank.desc>","select",
-    "googy","Googy-Max Kernel","<~archidroid.kernel.googy.desc>","select",
+    #"googy","Googy-Max Kernel","<~archidroid.kernel.googy.desc>","select",
     "stock","Stock CM","<~archidroid.kernel.stock.desc>","select",
 
     "dpi","<#selectbg_g>DPI</#>","","group",
@@ -371,9 +372,9 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "custo
 
     "other","<#selectbg_g><~archidroid.other></#>","","group",
     "archidroidota","ArchiDroid OTA","<~archidroid.ota.desc>","check.checked",
-    "xposed","Xposed Framework","<~archidroid.xposed.desc>","check.checked",
+    #"xposed","Xposed Framework","<~archidroid.xposed.desc>","check.checked",
     "crossbreeder","Crossbreeder [EOL]","<~archidroid.crossbreeder.desc>","check.checked",
-    "updatemodem","<~archidroid.updatemodem> [XXEMG4]","<~archidroid.updatemodem.desc>","check",
+    "updatemodem","<~archidroid.updatemodem> [XXUGMJ9]","<~archidroid.updatemodem.desc>","check",
     "updaterecovery","<~archidroid.updaterecovery> [PhilZ Touch Recovery]","<~archidroid.updaterecovery.desc>","check",
 
     "googleapps","<#selectbg_g>Google Apps</#>","","group",
@@ -467,21 +468,21 @@ if file_getprop("/tmp/aroma-data/archidroidinstallmode.prop","preset") == "custo
     );
   endif;
 
-  if file_getprop("/tmp/aroma-data/archidroid.prop","xposed") == "1" then
-    form(
-      "<~archidroid.custom.extra>",
-      "<~archidroid.custom.desc>",
-      "@apps",
-      "archidroidxposed.prop",
+  #if file_getprop("/tmp/aroma-data/archidroid.prop","xposed") == "1" then
+    #form(
+      #"<~archidroid.custom.extra>",
+      #"<~archidroid.custom.desc>",
+      #"@apps",
+      #"archidroidxposed.prop",
 
-      "modules","<#selectbg_g>Xposed Modules</#>","","group",
-      "appsettings","App Settings","<~archidroid.xposed.appsettings.desc>","check.checked",
-      "xprivacy","XPrivacy","<~archidroid.xposed.xprivacy.desc>","check.checked"
-    );
-    write("/data/media/0/ArchiDroid/AromaPreset/2.X/archidroidxposed.prop",
-      readtmpfile("archidroidxposed.prop");
-    );
-  endif;
+      #"modules","<#selectbg_g>Xposed Modules</#>","","group",
+      #"appsettings","App Settings","<~archidroid.xposed.appsettings.desc>","check.checked",
+      #"xprivacy","XPrivacy","<~archidroid.xposed.xprivacy.desc>","check.checked"
+    #);
+    #write("/data/media/0/ArchiDroid/AromaPreset/2.X/archidroidxposed.prop",
+      #readtmpfile("archidroidxposed.prop");
+    #);
+  #endif;
   if file_getprop("/tmp/aroma-data/archidroid.prop","buildtweaks") == "1" then
     form(
       "<~archidroid.custom.extra>",
@@ -613,6 +614,7 @@ ini_set("text_next", "<~common.finish>");
 	  "<~archidroid.install.finish>"
 );
 
+resexec("exec/archidroid_finish.sh");
 if
   confirm(
 	#-- Title
@@ -630,6 +632,9 @@ then
   reboot("onfinish");
 endif;
 else
+
+resexec("exec/archidroid_finish.sh");
+
 ini_set("text_next", "<~common.finish>");
 
  install(
